@@ -15,3 +15,11 @@ class Nodo:
             self.coste_objetivo += abs(m1-m2)
         self.total = self.coste_nodo = self.coste_objetivo 
     
+    def mal_posicionados(self,matrizObjetivo):
+    	counter=0
+    	m_copy = matrizObjetivo.copy()
+    	del m_copy[""]
+    	for key in m_copy.keys():
+    		if((self.puzzle[key]["row"] != m_copy[key]["row"] or self.puzzle[key]["col"] !=m_copy[key]["col"])):
+    				counter+=1
+    	self.total=counter+self.coste_nodo
