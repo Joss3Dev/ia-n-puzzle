@@ -10,15 +10,6 @@ class Estado:
         self.altura = altura
 
     def bfs(self):
-        """
-        * Primero encolar el primer estado
-        * Despues entrar a un loop que desencole cada estado y al desencolar procesar que nuevos movimientos puede
-        tomar ese estado
-        * Verifica si no es un estado final
-        *
-        :param estado_inicial:
-        :return:
-        """
         cola = []
         cola.append(self)
         nodos_expandidos = 0
@@ -26,11 +17,11 @@ class Estado:
         final = None
         t_ini = time.time()
         while len(cola) > 0 and not final:
+            if (time.time() - t_ini) * 1000 > 30000:
+                print("BFS no pudo encontrar una solucion pasados 30 segundos")
+                break
             nodos_expandidos += 1
             estado_actual = cola.pop(0)
-            print()
-            print('Matriz: ', estado_actual.matriz)
-            print('Altura: ', estado_actual.altura)
             if estado_actual.es_estado_final():
                 final = estado_actual
             elif estado_actual.matriz not in estados_explorados:
@@ -39,6 +30,7 @@ class Estado:
                 cola.extend(estados_siguientes)
         t_fin = time.time()
         t_total = t_fin - t_ini
+        return t_total, nodos_expandidos, self.matriz, final.matriz
 
     def evaluar_movimientos(self):
         """
