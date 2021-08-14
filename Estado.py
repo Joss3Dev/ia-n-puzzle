@@ -9,7 +9,7 @@ class Estado:
         self.padre = padre
         self.altura = altura
 
-    def bfs(self, estado_inicial):
+    def bfs(self):
         """
         * Primero encolar el primer estado
         * Despues entrar a un loop que desencole cada estado y al desencolar procesar que nuevos movimientos puede
@@ -20,18 +20,23 @@ class Estado:
         :return:
         """
         cola = []
-        cola.append(estado_inicial)
+        cola.append(self)
         nodos_expandidos = 0
+        estados_explorados = []
         final = None
         t_ini = time.time()
-        while len(cola) > 0 or not final:
+        while len(cola) > 0 and not final:
             nodos_expandidos += 1
-            estado_actual = cola.pop()
+            estado_actual = cola.pop(0)
+            print()
+            print('Matriz: ', estado_actual.matriz)
+            print('Altura: ', estado_actual.altura)
             if estado_actual.es_estado_final():
                 final = estado_actual
-            else:
+            elif estado_actual.matriz not in estados_explorados:
                 estados_siguientes = estado_actual.evaluar_movimientos()
-                cola.append(estados_siguientes)
+                estados_explorados.append(estado_actual.matriz)
+                cola.extend(estados_siguientes)
         t_fin = time.time()
         t_total = t_fin - t_ini
 
@@ -66,22 +71,23 @@ class Estado:
         if not (cant_cols ** 2 - cant_cols) <= self.pos_vacio < len(self.matriz):
             nuevo_estado = self.mover('abj')
             nuevos_estados.append(nuevo_estado)
+        return nuevos_estados
 
     def mover(self, dir):
-        matriz = self.matriz
+        matriz = self.matriz.copy()
         indice = self.pos_vacio
         if dir == 'der':
             matriz[indice], matriz[indice+1] = matriz[indice+1], matriz[indice]
             indice = indice + 1
-        if dir == 'izq':
+        elif dir == 'izq':
             matriz[indice], matriz[indice-1] = matriz[indice-1], matriz[indice]
             indice = indice - 1
-        if dir == 'arr':
-            cant_cols = math.sqrt(len(self.matriz))
+        elif dir == 'arr':
+            cant_cols = int(math.sqrt(len(self.matriz)))
             matriz[indice], matriz[indice - cant_cols] = matriz[indice - cant_cols], matriz[indice]
             indice = indice - cant_cols
-        if dir == 'abj':
-            cant_cols = math.sqrt(len(self.matriz))
+        elif dir == 'abj':
+            cant_cols = int(math.sqrt(len(self.matriz)))
             matriz[indice], matriz[indice + cant_cols] = matriz[indice + cant_cols], matriz[indice]
             indice = indice + cant_cols
         nuevo_estado = Estado(matriz, indice, self, self.altura + 1)
