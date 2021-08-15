@@ -35,10 +35,10 @@ class Estado:
     def evaluar_movimientos(self):
         """
         Tiene que recibir un objeto Estado, con el debe evaluar que movimientos se pueden hacer tomando en cuenta donde
-        esta la casilla vacia, la cantidad de columnas que tiene el puzle y retornar todos lo movimientos que se pueden
+        esta la casilla vacia, la cantidad de columnas que tiene el puzzle y retornar todos lo movimientos que se pueden
         hacer
 
-        En un puzle unidimencional:
+        En un puzzle unidimensional:
         movimiento izquierda: indice - 1
         movimiento derecha: indice + 1
         movimiento arriba: indice - cantidad_columnas
