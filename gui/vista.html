@@ -16,10 +16,15 @@
         <h1 class="display-4">N-Puzzle</h1>
         <div class="d-flex">
             <input type="number" id="n" class="form-control w-50" placeholder="Ingrese el valor de N">
-            <button class="btn btn-primary ml-2" onclick="generarMatriz()">Generar estado inicial</button>
+            <select id="algoritmo" name="algoritmo" class="form-control w-50" placeholder="Elija el algoritmo de resolucion">
+                <option value="0" selected>BFS</option>
+                <option value="1">Distancia de Manhattan</option>
+                <option value="2">Piezas en lugar incorrecto</option>
+            </select>
+            <button class="btn btn-primary ml-2" onclick="generarMatriz()">Generar y resolver</button>
         </div>
         <hr class="my-4">
-        <div class="d-flex flex-column align-items-center">
+        <div id="tablas" class="d-flex flex-column align-items-center">
             <h1 class="display-6">Estado inicial</h1>
                 <table id="tabla_inicial" class="table table-bordered w-25 table-dark">
                     <tbody id="tabla_inicial_body" class="text-center">
@@ -40,12 +45,6 @@
                     </tr>
                     </tbody>
                 </table>
-                <select name="algotritmo" class="form-control w-50" placeholder="Elija el algoritmo de resolucion">
-                    <option value="0">BFS</option>
-                    <option value="1">Distancia de Manhattan</option>
-                    <option value="2">Piezas en lugar incorrecto</option>
-                </select>
-                <button class="btn btn-primary mt-4" onclick="buscarResolucion()">Iniciar busqueda</button>
         </div>
     </div>
 </div>

@@ -1,13 +1,15 @@
 import math, time
+import eel
 
 
 class Estado:
 
-    def __init__(self, matriz, pos_vacio, padre, altura):
+    def __init__(self, matriz, pos_vacio, padre, altura, dir):
         self.matriz = matriz
         self.pos_vacio = pos_vacio
         self.padre = padre
         self.altura = altura
+        self.dir_padre = dir
 
     def bfs(self):
         cola = []
@@ -19,7 +21,7 @@ class Estado:
         while len(cola) > 0 and not final:
             if (time.time() - t_ini) * 1000 > 30000:
                 print("BFS no pudo encontrar una solucion pasados 30 segundos")
-                break
+                return (time.time() - t_ini) * 1000, nodos_expandidos, self.matriz, False, False
             nodos_expandidos += 1
             estado_actual = cola.pop(0)
             if estado_actual.es_estado_final():
@@ -30,7 +32,10 @@ class Estado:
                 cola.extend(estados_siguientes)
         t_fin = time.time()
         t_total = t_fin - t_ini
-        return t_total, nodos_expandidos, self.matriz, final.matriz
+        if final:
+            return t_total, nodos_expandidos, self.matriz, final.matriz, final.get_cadena_solucion()
+        else:
+            return t_total, nodos_expandidos, self.matriz, None, None
 
     def evaluar_movimientos(self):
         """
@@ -82,7 +87,7 @@ class Estado:
             cant_cols = int(math.sqrt(len(self.matriz)))
             matriz[indice], matriz[indice + cant_cols] = matriz[indice + cant_cols], matriz[indice]
             indice = indice + cant_cols
-        nuevo_estado = Estado(matriz, indice, self, self.altura + 1)
+        nuevo_estado = Estado(matriz, indice, self, self.altura + 1, dir)
         return nuevo_estado
 
     def es_estado_final(self):
@@ -91,3 +96,44 @@ class Estado:
             if matriz[i] > matriz[i + 1]:
                 return False
         return True
+
+    def solucion(self):
+        soluc = []
+        if self.dir_padre:
+            soluc.extend(self.padre.solucion())
+            if self.dir_padre == 'der':
+                soluc.append('Derecha')
+            elif self.dir_padre == 'izq':
+                soluc.append('Izquierda')
+            elif self.dir_padre == 'arr':
+                soluc.append('Arriba')
+            elif self.dir_padre == 'abj':
+                soluc.append('Abajo')
+            return soluc
+        else:
+            return []
+
+    def get_cadena_solucion(self):
+        list_mov = self.solucion()
+        camino = ''
+        for dir in list_mov:
+            camino = camino + dir + ','
+        return camino[:-1]
+
+@eel.expose
+def iniciar_bfs(matriz, n):
+    pos_vacio = matriz.index('')
+    matriz[pos_vacio] = int(n)*100
+    nuevo_estado = Estado(matriz, pos_vacio, None, 0, None)
+    tiempo, cant_nodos, matriz_ini, matriz_fin, camino_sol = nuevo_estado.bfs()
+    if matriz_fin:
+        matriz_ini[matriz_ini.index(int(n)*100)] = ''
+        matriz_fin[matriz_fin.index(int(n)*100)] = ''
+        return {
+            'tiempo': round(tiempo*1000),   # en milisegundos
+            'cant_nodos': cant_nodos,
+            'matriz_fin': matriz_fin,
+            'solucion': camino_sol
+        }
+    else:
+        return False
