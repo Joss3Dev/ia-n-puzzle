@@ -29,6 +29,7 @@ def generarDic(v, n):
 
 @eel.expose
 def iniciar_busqueda_con_a(vector, tam, estrategia):
+    s = None
     explorado = []
     prioridad = PriorityQueue()
     matriz_inicial = generarDic(vector, tam)
