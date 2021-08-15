@@ -72,7 +72,9 @@ async function generarMatriz() {
                 }
             } else {
                 alert("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
+                var div_tablas = document.getElementById("tablas");
                 var div_resultados = document.createElement("div");
+                div_resultados.setAttribute("id", "div_resultados");
                 var span_sin_solucion = document.createElement("span");
                 var texto_mas_30_seg = document.createTextNode("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
                 span_sin_solucion.appendChild(texto_mas_30_seg);
@@ -133,7 +135,9 @@ async function generarMatriz() {
                 }
             } else {
                 alert("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
+                var div_tablas = document.getElementById("tablas");
                 var div_resultados = document.createElement("div");
+                div_resultados.setAttribute("id", "div_resultados");
                 var span_sin_solucion = document.createElement("span");
                 var texto_mas_30_seg = document.createTextNode("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
                 span_sin_solucion.appendChild(texto_mas_30_seg);
@@ -195,7 +199,9 @@ async function generarMatriz() {
                 }
             } else {
                 alert("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
+                var div_tablas = document.getElementById("tablas");
                 var div_resultados = document.createElement("div");
+                div_resultados.setAttribute("id", "div_resultados");
                 var span_sin_solucion = document.createElement("span");
                 var texto_mas_30_seg = document.createTextNode("La busqueda tardo mas de 30 segundos y no se pudo encontrar una solucion. Intente nuevamente o utilize otro algoritmo.");
                 span_sin_solucion.appendChild(texto_mas_30_seg);
@@ -213,14 +219,6 @@ async function generarMatriz() {
     else{
         alert("Ingrese un valor para N")
     }
-}
-
-async function buscarResolucion(){
-    let algoritmo = document.getElementById("algotritmo").value;
-    let n = document.getElementById("n").value;
-    // BUSCAR FORMA DE OBTENER EL ESTADO INICIAL Y VALIDAR QUE YA SE HAYA GENERADO
-    // SEPARAR PARA ELEGIR VARIOS ALGORITMOS
-
 }
 
 function crearBodyTabla(n, valores){
