@@ -123,11 +123,11 @@ class Estado:
 @eel.expose
 def iniciar_bfs(matriz, n):
     pos_vacio = matriz.index('')
+    matriz_inicial = matriz.copy()
     matriz[pos_vacio] = int(n)*100
-    nuevo_estado = Estado(matriz, pos_vacio, None, 0, None)
+    nuevo_estado = Estado(matriz.copy(), pos_vacio, None, 0, None)
     tiempo, cant_nodos, matriz_ini, matriz_fin, camino_sol = nuevo_estado.bfs()
     if matriz_fin:
-        matriz_ini[matriz_ini.index(int(n)*100)] = ''
         matriz_fin[matriz_fin.index(int(n)*100)] = ''
         return {
             'tiempo': round(tiempo*1000),   # en milisegundos
