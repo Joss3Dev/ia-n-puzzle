@@ -39,6 +39,8 @@ async function generarMatriz() {
                 var div_tablas = document.getElementById("tablas");
                 var h1 = document.createElement("h1");
                 h1.classList.add("display-6");
+                var text_estado_final = document.createTextNode("Estado Final");
+                h1.appendChild(text_estado_final)
                 div_resultados.appendChild(h1);
 
                 var tabla = document.createElement("table");
@@ -102,6 +104,8 @@ async function generarMatriz() {
                 var div_tablas = document.getElementById("tablas");
                 var h1 = document.createElement("h1");
                 h1.classList.add("display-6");
+                var text_estado_final = document.createTextNode("Estado Final");
+                h1.appendChild(text_estado_final)
                 div_resultados.appendChild(h1);
 
                 var tabla = document.createElement("table");
@@ -166,6 +170,8 @@ async function generarMatriz() {
                 var div_tablas = document.getElementById("tablas");
                 var h1 = document.createElement("h1");
                 h1.classList.add("display-6");
+                var text_estado_final = document.createTextNode("Estado Final");
+                h1.appendChild(text_estado_final)
                 div_resultados.appendChild(h1);
 
                 var tabla = document.createElement("table");
