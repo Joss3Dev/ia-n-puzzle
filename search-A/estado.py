@@ -17,6 +17,13 @@ class Nodo:
                 m2 = abs(self.matriz[key]["col"] - matriz_meta[key]["col"])
                 self.heuristica += m1 + m2 
         self.costo_f = self.costo_g + self.heuristica 
+    
+
+    def metodo_a_utilizar(self,flag, m_meta):
+        if flag:
+            self.distancia_manhattan(m_meta)
+        else:
+            self.mal_posicionados(m_meta)
 
 
     def mal_posicionados(self, matriz_meta):
@@ -38,7 +45,7 @@ class Nodo:
         return pasos_solucion[::-1] 
 
     
-    def expandir(self, queuePriority, size, m_meta, counter):
+    def expandir(self, queuePriority, size, m_meta, counter, metodo):
         vacio = self.matriz[""]
         derecha = { "row": vacio["row"], "col": vacio["col"] + 1} if vacio["col"] +  1 <= size else None
         izquierda = { "row": vacio["row"], "col": vacio["col"] - 1} if vacio["col"] -  1 > 0 else None
@@ -48,23 +55,23 @@ class Nodo:
             if key != "":
                 if arriba is not None and self.matriz[key]["row"] == arriba["row"] and self.matriz[key]["col"] == arriba["col"]:
                     counter += 1
-                    queuePriority.put(self.moverPieza(key, arriba, "arriba", m_meta, counter))
+                    queuePriority.put(self.moverPieza(key, arriba, "arriba", m_meta, counter, metodo))
                 elif derecha is not None and self.matriz[key]["row"] == derecha["row"] and self.matriz[key]["col"] == derecha["col"]:
                     counter += 1
-                    queuePriority.put(self.moverPieza(key, derecha, "derecha", m_meta, counter))
+                    queuePriority.put(self.moverPieza(key, derecha, "derecha", m_meta, counter, metodo))
                 elif abajo is not None and self.matriz[key]["row"] == abajo["row"] and self.matriz[key]["col"] == abajo["col"]:
                     counter += 1
-                    queuePriority.put(self.moverPieza(key, abajo, "abajo", m_meta, counter))
+                    queuePriority.put(self.moverPieza(key, abajo, "abajo", m_meta, counter, metodo))
                 elif izquierda is not None and self.matriz[key]["row"] == izquierda["row"] and self.matriz[key]["col"] == izquierda["col"]:
                     counter += 1
-                    queuePriority.put(self.moverPieza(key, izquierda, "izquierda", m_meta, counter)) 
+                    queuePriority.put(self.moverPieza(key, izquierda, "izquierda", m_meta, counter, metodo)) 
         return counter
 
     
-    def moverPieza(self, key_pieza, pos_next, name, m_meta1, counter):
+    def moverPieza(self, key_pieza, pos_next, name, m_meta, counter, meth):
         temp_matriz = self.matriz.copy()
         temp_matriz[key_pieza] = temp_matriz[""]
         temp_matriz[""] = pos_next
         new_nodo = Nodo(temp_matriz, self, self.costo_g + 1, name)
-        new_nodo.distancia_manhattan(m_meta1)
+        new_nodo.metodo_a_utilizar(meth, m_meta)
         return (new_nodo.costo_f, counter, new_nodo)

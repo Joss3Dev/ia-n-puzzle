@@ -1,86 +1,38 @@
-from math import sqrt
-import random
 from estado import Nodo
 from queue import PriorityQueue 
 from datetime import datetime
 
-import eel
 
-eel.init("gui")
-
-matriz_objetivo = {}
-matriz_inicial = {}
-
-@eel.expose
-def generarEstadoInicial(size):
-    N = int(size)
-    valores = list(range(1,N*N)) + [""]
-    solucionable = False
-    while not solucionable: 
-        rand =  random.sample(valores, N*N)
-        count = 0
-        for x in range(1,N+1):
-            for y in range(1,N+1):
-                matriz_inicial[rand[count]] = { "row": x, "col": y}
-                count += 1 
-        solucionable = inversion(rand) 
-    #print("Estado inicial:", rand)
-    return rand
-    #init_search()
-
-
-def inversion(vector):
-    count = 0
-    for i in range(0,len(vector)-1):
-        for j in range(i+1, len(vector)):
-            if (vector[i] != "" and vector[j] != "" and vector[i] > vector[j]):
-                count += 1
-    return count % 2 == 0
-
-
-
-eel.start("vista.html", mode="default")
-"""
-def generarNodoObjetivo():
+def generarMeta(n):
     valor = 1
-    for x in range(1,N+1):
-        for y in range(1,N+1):
-            if x == N and y == N:
-                matriz_objetivo[""] = { "row": N, "col": N}
+    d = {}
+    for x in range(1,n+1):
+        for y in range(1,n+1):
+            if x == n and y == n:
+                d[""] = { "row": n, "col": n}
             else:
-                matriz_objetivo[valor] = { "row": x, "col": y}
+                d[valor] = { "row": x, "col": y}
                 valor += 1 
-
-#
-def generarEstadoInicial():
-    valores = list(range(1,N*N)) + [""]
-    solucionable = False
-    while not solucionable: 
-        rand =  random.sample(valores, N*N)
-        count = 0
-        for x in range(1,N+1):
-            for y in range(1,N+1):
-                matriz_inicial[rand[count]] = { "row": x, "col": y}
-                count += 1 
-        solucionable = inversion(rand) 
-    print("Estado inicial:", rand)
-    return matriz_inicial, rand
+    return d
 
 
-def inversion(vector):
-    count = 0
-    for i in range(0,len(vector)-1):
-        for j in range(i+1, len(vector)):
-            if (vector[i] != "" and vector[j] != "" and vector[i] > vector[j]):
-                count += 1
-    return count % 2 == 0
+def generarDic(v, n):
+    count = 1
+    d = {}
+    for x in range(1,n+1):
+        for y in range(1,n+1):
+            d[v[count]] = { "row": x, "col": y}
+            count += 1
+    return d 
 
 
-def init_search():
+def iniciar_busqueda_con_a(vector, tam, estrategia):
     explorado = []
     prioridad = PriorityQueue()
+    matriz_inicial = generarDic(vector,tam)
+    matriz_objetivo = generarMeta(tam)
     raiz = Nodo(matriz_inicial, None, 0, None)
-    raiz.distancia_manhattan(matriz_objetivo)
+    raiz.metodo_a_utilizar(estrategia, matriz_objetivo)
     counter = 0
     prioridad.put((raiz.costo_f, counter, raiz))
     while not prioridad.empty():
@@ -94,15 +46,10 @@ def init_search():
         else:
             if nodo.matriz not in explorado:
                 explorado.append(nodo.matriz)
-                counter = nodo.expandir(prioridad, N, matriz_objetivo, counter) 
+                counter = nodo.expandir(prioridad, tam, matriz_objetivo, counter, estrategia) 
     print("Cantidad de Nodos visitados:",len((explorado)))
 
 
-N = int(input("N-Puzzle: "))
-generarNodoObjetivo()
 start = datetime.now()
-generarEstadoInicial()
-init_search()
 end = datetime.now() - start
 print("Tiempo de solucion: ", end)
-"""
