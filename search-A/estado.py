@@ -9,6 +9,7 @@ class Nodo:
         self.heuristica = 0
         self.costo_f = 0 
 
+
     def distancia_manhattan(self, matriz_meta):
         for key in matriz_meta.keys():
             if key != "":
@@ -16,6 +17,14 @@ class Nodo:
                 m2 = abs(self.matriz[key]["col"] - matriz_meta[key]["col"])
                 self.heuristica += m1 + m2 
         self.costo_f = self.costo_g + self.heuristica 
+
+
+    def mal_posicionados(self, matriz_meta):
+    	for key in matriz_meta.keys():
+    		if key != "" and (self.matriz[key]["row"] != matriz_meta[key]["row"] or self.matriz[key]["col"] != matriz_meta[key]["col"]):
+    				self.heuristica += 1
+    	self.costo_f= self.heuristica + self.costo_g
+    
     
     def solucion(self):
         print("Encontro solucion")

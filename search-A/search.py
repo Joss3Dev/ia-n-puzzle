@@ -4,10 +4,43 @@ from estado import Nodo
 from queue import PriorityQueue 
 from datetime import datetime
 
+import eel
+
+eel.init("gui")
+
 matriz_objetivo = {}
 matriz_inicial = {}
 
+@eel.expose
+def generarEstadoInicial(size):
+    N = int(size)
+    valores = list(range(1,N*N)) + [""]
+    solucionable = False
+    while not solucionable: 
+        rand =  random.sample(valores, N*N)
+        count = 0
+        for x in range(1,N+1):
+            for y in range(1,N+1):
+                matriz_inicial[rand[count]] = { "row": x, "col": y}
+                count += 1 
+        solucionable = inversion(rand) 
+    #print("Estado inicial:", rand)
+    return rand
+    #init_search()
 
+
+def inversion(vector):
+    count = 0
+    for i in range(0,len(vector)-1):
+        for j in range(i+1, len(vector)):
+            if (vector[i] != "" and vector[j] != "" and vector[i] > vector[j]):
+                count += 1
+    return count % 2 == 0
+
+
+
+eel.start("vista.html", mode="default")
+"""
 def generarNodoObjetivo():
     valor = 1
     for x in range(1,N+1):
@@ -71,3 +104,4 @@ start = datetime.now()
 generarEstadoInicial()
 end = datetime.now() - start
 print("Tiempo de solucion: ", end)
+"""
