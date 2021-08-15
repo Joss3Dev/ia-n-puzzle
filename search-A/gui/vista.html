@@ -6,46 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="eel.js"></script>
     <script type="text/javascript" src="index.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>N-Puzzle</title>
 </head>
 <body>
-    <div class="d-flex flex-column align-items-center" style="height: 100vh; width: 100vw;">
-      <div class="jumbotron mt-4 w-50">
+<div class="d-flex flex-column align-items-center" style="height: 100vh; width: 100vw;">
+    <div class="jumbotron mt-4 w-50">
         <h1 class="display-4">N-Puzzle</h1>
         <div class="d-flex">
-          <input type="number" id="n" class="form-control w-50" placeholder="Ingrese el valor de N">
-          <button class="btn btn-primary ml-2" onclick="generarMatriz()">Generar estado inicial</button>
+            <input type="number" id="n" class="form-control w-50" placeholder="Ingrese el valor de N">
+            <button class="btn btn-primary ml-2" onclick="generarMatriz()">Generar estado inicial</button>
         </div>
         <hr class="my-4">
         <div class="d-flex flex-column align-items-center">
-          <h4 class="display-6">Estado inicial</h1>
-          <table class="table table-bordered w-25 table-dark">
-            <tbody class="text-center">
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-primary mt-4">Iniciar busqueda</button>
+            <h1 class="display-6">Estado inicial</h1>
+                <table id="tabla_inicial" class="table table-bordered w-25 table-dark">
+                    <tbody id="tabla_inicial_body" class="text-center">
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <select name="algotritmo" class="form-control w-50" placeholder="Elija el algoritmo de resolucion">
+                    <option value="0">BFS</option>
+                    <option value="1">Distancia de Manhattan</option>
+                    <option value="2">Piezas en lugar incorrecto</option>
+                </select>
+                <button class="btn btn-primary mt-4" onclick="buscarResolucion()">Iniciar busqueda</button>
         </div>
-      </div>
     </div>
-   
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
