@@ -26,4 +26,4 @@ resuelve muestra otra tabla debajo de la del estado inicial que muestra la tabla
 Tambien se muestra el tiempo transcurrido en milisegundos para la solucion, la cantidad de nodos y
 el camino de solucion.
 
-Si el algoritmo tarda mas de 30 segundos se muestra una adventencia y se deja de ejecutar.git 
+Si el algoritmo tarda mas de 30 segundos para el BFS o mas de 5 minutos para la busqueda A* se muestra una adventencia y se deja de ejecutar.git 

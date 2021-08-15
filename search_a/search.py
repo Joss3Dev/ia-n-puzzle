@@ -44,7 +44,7 @@ def iniciar_busqueda_con_a(vector, tam, estrategia):
         nodo = item[2]
 
         if (time.time() - t_ini) * 1000 > 300000:
-            print("Busqueda A* no pudo encontrar una solucion pasados 30 segundos.")
+            print("Busqueda A* no pudo encontrar una solucion pasados 5 minutos.")
             return False
         
         if nodo.matriz == matriz_objetivo:
