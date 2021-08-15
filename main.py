@@ -3,7 +3,7 @@ import random
 from bfs.Estado import iniciar_bfs
 from search_a.search import iniciar_busqueda_con_a
 
-eel.init("C:/Users/Jose/Documents/ia-n-puzzle/gui")
+eel.init("gui")
 
 rand = None
 N = None
