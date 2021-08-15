@@ -31,7 +31,7 @@ def generarEstadoInicial():
                 count += 1 
         solucionable = inversion(rand) 
     print("Estado inicial:", rand)
-    init_search()
+    return matriz_inicial, rand
 
 
 def inversion(vector):
@@ -69,5 +69,6 @@ N = int(input("N-Puzzle: "))
 generarNodoObjetivo()
 start = datetime.now()
 generarEstadoInicial()
+init_search()
 end = datetime.now() - start
 print("Tiempo de solucion: ", end)
