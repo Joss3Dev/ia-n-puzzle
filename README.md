@@ -1,10 +1,10 @@
 # ia-n-puzzle
 Implementacion del algoritmo de N-Puzzle con Busqueda por Ancho y A*
 
-Alumnos:
--Ivan Vera
--Nelson Ruiz
--José Luis Benitez
+## Alumnos:
+ - Ivan Vera
+ - Nelson Ruiz
+ - José Luis Benitez
 
 # Instalacion y Uso
 Para utilizar se debe contar con python 3.5 para arriba, se debe instalar la libreria ```eel``` mediante:
